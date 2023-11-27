@@ -1,0 +1,46 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    container_name: 'companyname-gitlab'
+    restart: always
+    hostname: 'gitlab.yourdomain.tld'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.yourdomain.tld'
+        gitlab_rails['smtp_enable'] = true
+        gitlab_rails['smtp_address'] = "mail.yourdomain.tld"
+        gitlab_rails['smtp_user_name'] = "username"
+        gitlab_rails['smtp_password'] = "password"
+        gitlab_rails['smtp_domain'] = "gitlab.yourdomain.tld"
+        gitlab_rails['smtp_enable_starttls_auto'] = true
+        gitlab_rails['smtp_port'] = 587
+        gitlab_rails['smtp_authentication'] = "login"
+        gitlab_rails['gitlab_email_from'] = 'gitlab@yourdomain.tld'
+        gitlab_rails['gitlab_email_reply_to'] = 'no-replay@yourdomain.tld'
+		    gitlab_rails['gitlab_shell_ssh_port'] = 22
+		    gitlab_rails['time_zone'] = 'UTC'
+		    gitlab_rails['gitlab_default_theme'] = 2 # 1 for Light, 2 for Dark
+		    gitlab_rails['gitlab_signup_enabled'] = true
+		    gitlab_rails['gitlab_signin_enabled'] = true
+		    gitlab_rails['gitlab_username_changing_enabled'] = true
+	#     gitlab_rails['backup_keep_time'] = 604800 # 1 week in seconds
+  #     gitlab_rails['rate_limit_requests_per_period'] = 1000
+	#     gitlab_rails['rate_limit_period'] = 60
+	#     gitlab_rails['issues_tracker'] = 'redmine' # Set to your issue tracker if integrated
+	#     gitlab_rails['gravatar_enabled'] = true
+  #     gitlab_rails['gravatar_allow_uploads'] = true
+  #     gitlab_rails['gravatar_plain_url'] = 'https://www.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon'
+  #     gitlab_rails['gravatar_ssl_url'] = 'https://secure.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon'
+  #     gitlab_rails['gravatar_redirect_url'] = ''
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+      - '587:587'
+    volumes:
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '512m'
