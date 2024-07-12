@@ -19,11 +19,11 @@ services:
         gitlab_rails['gitlab_email_from'] = 'gitlab@yourdomain.tld'
         gitlab_rails['gitlab_email_reply_to'] = 'no-replay@yourdomain.tld'
         gitlab_rails['gitlab_shell_ssh_port'] = 22
-	gitlab_rails['time_zone'] = 'UTC'
+        gitlab_rails['time_zone'] = 'UTC'
         gitlab_rails['gitlab_default_theme'] = 2 # 1 for Light, 2 for Dark
-	gitlab_rails['gitlab_signup_enabled'] = true
-	gitlab_rails['gitlab_signin_enabled'] = true
-	gitlab_rails['gitlab_username_changing_enabled'] = true
+        gitlab_rails['gitlab_signup_enabled'] = true
+        gitlab_rails['gitlab_signin_enabled'] = true
+        gitlab_rails['gitlab_username_changing_enabled'] = true
 #       gitlab_rails['backup_keep_time'] = 604800 # 1 week in seconds
 #       gitlab_rails['rate_limit_requests_per_period'] = 1000
 #       gitlab_rails['rate_limit_period'] = 60
@@ -34,6 +34,7 @@ services:
 #       gitlab_rails['gravatar_ssl_url'] = 'https://secure.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon'
 #       gitlab_rails['gravatar_redirect_url'] = ''
         # Add any other gitlab.rb configuration here, each on its own line
+        # Add any other gitlab.rb configuration here, each on its own line
     ports:
       - '80:80'
       - '443:443'
@@ -43,8 +44,7 @@ services:
       - '$GITLAB_HOME/config:/etc/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/data:/var/opt/gitlab'
-    shm_size: '512m'
-
+      
     networks:
       - static
 #Network configuration
